@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="stringBean" class="java.lang.String">
+        <constructor-arg value="bean_string"/>
+    </bean>
+
+    <!-- 通过 setter 方法进行注入 -->
+    <bean id="container" name="container" class="org.play.advanceinject.Container">
+        <property name="list">
+
+            <!-- 通过 list 元素手动注入元素值 -->
+            <list>
+                <!-- 创建值 -->
+                <value>StringValue1</value>
+                <value>StringValue2</value>
+                <!-- 引用已经存在的 bean -->
+                <ref bean="stringBean"/>
+            </list>
+        </property>
+
+        <!-- 通过 map 元素手动注入 -->
+        <property name="map">
+            <map>
+                <!-- 手动创建值 -->
+                <entry key="strKey" value="strValue"/>
+                <!-- 引用已经存在的 bean -->
+                <entry key="strBean" value-ref="stringBean"/>
+                <!-- 另外一种写法 -->
+                <entry key="strDummy">
+                    <value>DummyValue</value>
+                </entry>
+            </map>
+        </property>
+
+        <!-- 通过 props 元素手动注入 -->
+        <property name="properties">
+            <!-- 注入非空值 -->
+<!--            <props>-->
+<!--                &lt;!&ndash; props 元素不支持 bean 引用，只能手动创建值 &ndash;&gt;-->
+<!--                <prop key="strKey">strKey</prop>-->
+<!--                <prop key="strBean">strBeanManual</prop>-->
+<!--            </props>-->
+
+            <!-- 注入一个空值 -->
+            <null/>
+        </property>
+    </bean>
+</beans>

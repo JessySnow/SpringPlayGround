@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 普通 bean，可以被全局访问，包括其子容器 -->
+    <!-- <bean id="a" class="org.play.manual.Main.A"/>-->
+
+    <bean id="b" class="org.play.manual.Main.B">
+        <!-- 构造器注入, index 指定参数在构造器中的位置 -->
+        <constructor-arg index="0">
+            <!-- 内部 Bean 语法，构造器注入方式的参数内部声明 bean，该 bean 无法被外部访问 -->
+            <bean id = "a" class="org.play.manual.Main.A"/>
+        </constructor-arg>
+    </bean>
+
+</beans>

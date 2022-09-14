@@ -1,4 +1,4 @@
-package org.play;
+package org.play.manual;
 
 import org.play.publicinterface.ValidateInterface;
 import org.springframework.beans.factory.BeanFactory;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 
 public class Main {
 
@@ -30,11 +31,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // BeanFactory 的一个实现
         DefaultListableBeanFactory beanRegister = new DefaultListableBeanFactory();
         BeanFactory container = (BeanFactory) bindViaCode(beanRegister);
 
+        // 从 Ioc 容器中获取 Bean
         B b = (B) container.getBean("B");
         b.doSomething();
+
+        // 从 XML 构造 Bean 容器
+        // BeanFactory 的一个实现
+        DefaultListableBeanFactory beanRegister_xml = new DefaultListableBeanFactory();
+        //
+        BeanFactory container_xml = (BeanFactory) bindViaXml(beanRegister_xml);
+        B b_xml = (B)container_xml.getBean("b");
+        b_xml.doSomething();
     }
 
     public static BeanFactory bindViaCode(BeanDefinitionRegistry registry){
@@ -48,11 +59,17 @@ public class Main {
 
         // 指定 Bean 之间的依赖关系
         // 这里使用 构造函数 来指定 A 和 B 之间的依赖关系
-        // 具体是将 B类的定义对象 的构造器的参数列表的 第一个参数 设置为 A类的定义对象
+        // 具体是将 B类的定义对象 的构造器的参数列表的 第一个参数 设置为 A类的定义对象，因为 B类 的构造函数的第一个参数就是 A类
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
         argumentValues.addIndexedArgumentValue(0, ADef);
         BDef.setConstructorArgumentValues(argumentValues);
 
+        return (BeanFactory) registry;
+    }
+
+    public static BeanFactory bindViaXml(BeanDefinitionRegistry registry){
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(registry);
+        reader.loadBeanDefinitions("ioc-play.xml");
         return (BeanFactory) registry;
     }
 }
