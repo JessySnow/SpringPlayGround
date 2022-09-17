@@ -3,14 +3,13 @@ package org.play.advanceinject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("ioc-plat-advinj.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("ioc-play-advinj.xml");
         Container container = (Container) context.getBean("container");
 
         List<String> list = container.getList();
