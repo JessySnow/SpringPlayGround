@@ -3,10 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- 扫描注解，完成类型注入的 Bean -->
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
-    <!-- 只需要声明类型即可 -->
-    <bean id="a" class="org.play.annonation_auto_wire.A"/>
-    <bean id="b" class="org.play.annonation_auto_wire.B"/>
+    <bean id="interface_b" class="org.play.annonation_auto_wire.Interface_B"/>
+    <bean id="interface_a" class="org.play.annonation_auto_wire.Interface_A"/>
+
+    <bean id="c" class="org.play.annonation_auto_wire.C" depends-on="interface_a">
+        <constructor-arg index="0" ref="interface_a"/>
+    </bean>
 </beans>

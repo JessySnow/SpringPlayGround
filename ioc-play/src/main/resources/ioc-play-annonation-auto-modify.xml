@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+    <bean id="interface_b" class="org.play.annonation_auto_wire.Interface_B"/>
+    <bean id="interface_a" class="org.play.annonation_auto_wire.Interface_A"/>
+
+    <bean id="c" class="org.play.annonation_auto_wire.C" depends-on="interface_a">
+        <constructor-arg index="0" ref="interface_a"/>
+    </bean>
+</beans>
