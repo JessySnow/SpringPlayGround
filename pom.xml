@@ -15,12 +15,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.framework.core.version>5.3.22</spring.framework.core.version>
         <spring.framework.context.version>5.3.22</spring.framework.context.version>
+        <spring.framework.mvc.version>5.3.22</spring.framework.mvc.version>
+        <javax.servlet.version>2.5</javax.servlet.version>
         <play.public-demo.version>1.0-SNAPSHOT</play.public-demo.version>
     </properties>
 
     <modules>
         <module>public-demo</module>
         <module>ioc-play</module>
+        <module>spring-mvc</module>
     </modules>
 
     <dependencyManagement>
@@ -36,6 +39,18 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.framework.context.version}</version>
+            </dependency>
+            <!-- SpringMVC 框架 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.framework.mvc.version}</version>
+            </dependency>
+            <!-- Servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${javax.servlet.version}</version>
             </dependency>
 
             <!-- 公共接口定义 -->
