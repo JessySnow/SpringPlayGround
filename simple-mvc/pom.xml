@@ -11,6 +11,10 @@
     <name>simple-mvc Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <webapp-name>simple-mvc</webapp-name>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -24,9 +28,33 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>simple-mvc</finalName>
+        <!-- Tomcat 自动部署插件 -->
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>tomcat9</server>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
+                    <update>true</update>
+                    <path>${webapp-name}</path>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

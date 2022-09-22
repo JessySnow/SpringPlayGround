@@ -3,11 +3,21 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- 访问映射规则 -->
     <bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
+    <!-- 视图解析方式 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 通过 bean 名字访问规则，定义一个 bean 名为 /entity.do，之后通过 url 访问这个 bean 的接口方法 handleRequestInternal  -->
+    <bean name="/entity.do" class="org.play.controller.EntityController">
+        <property name="viewName" value="entity"/>
+        <property name="entityService">
+            <bean class="org.play.service.impl.EntityServiceImpl"/>
+        </property>
     </bean>
 
 </beans>

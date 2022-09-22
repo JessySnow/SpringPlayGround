@@ -5,21 +5,26 @@
 <web-app>
   <display-name>Simple MVC</display-name>
 
-  <!-- 顶层 WebApplicationContext Bean 的xml文件配置，Context 从中构造 Bean -->
-  <!-- 该类型存在一个默认的配置文件 applicationContext.xml，也可以通过这个配置项自定义配置文件的位置 -->
+  <!-- 顶层 WebApplicationContext Bean 的xml文件配置，ContextLoaderListener 从中构造 Bean -->
+  <!-- ContextLoaderListener 存在一个默认的配置文件 applicationContext.xml，也可以通过这个配置项自定义配置文件的位置 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>WEB-INF/controller-servlet.xml</param-value>
+    <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
   </context-param>
 
   <!-- 负责加载顶层 WebApplicationContext -->
   <!-- 继承自 ServletContextListener 能够对 ServletContext 的生命周期进行监听-->
   <!-- 初始化完当前的 WebApplicationContext 后，还负责将这个 Context 绑定到 ServletContext 中 -->
-  <!-- 此时 ServletContext 的功能就被 WebApplicationContext 加强了 -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <!-- 前段控制器，用于请求分派，是一个 servlet -->
+  <!-- 该 Servlet 使用了一个外部化的配置文件，用来配置 MVC框架在处理 Web 请求中所涉及的各个组件，包括了 HandlerMapping 定义 -->
+  <!-- Controller 定义，ViewResolver 定义 -->
+  <!-- 外部配置文件的命名规则 (servlet-name)-servlet.name -->
+  <!-- 同时支持指定 Servlet init-param 来制定配置文件的路径（classpath路径） -->
+  <!-- Bean 初始化时会从 Ioc 容器中获取所需要的组件 -->
   <servlet>
     <servlet-name>dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -31,4 +36,8 @@
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
 
+
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/index.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>
