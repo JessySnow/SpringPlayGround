@@ -23,7 +23,7 @@
     <modules>
         <module>public-demo</module>
         <module>ioc-play</module>
-        <module>spring-mvc</module>
+        <module>simple-mvc</module>
     </modules>
 
     <dependencyManagement>
