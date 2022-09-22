@@ -6,13 +6,16 @@
   <display-name>Simple MVC</display-name>
 
   <!-- 顶层 WebApplicationContext Bean 的xml文件配置，Context 从中构造 Bean -->
-  <!-- 该类型存在一个 -->
+  <!-- 该类型存在一个默认的配置文件 applicationContext.xml，也可以通过这个配置项自定义配置文件的位置 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>WEB-INF/controller-servlet.xml</param-value>
   </context-param>
 
   <!-- 负责加载顶层 WebApplicationContext -->
+  <!-- 继承自 ServletContextListener 能够对 ServletContext 的生命周期进行监听-->
+  <!-- 初始化完当前的 WebApplicationContext 后，还负责将这个 Context 绑定到 ServletContext 中 -->
+  <!-- 此时 ServletContext 的功能就被 WebApplicationContext 加强了 -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
