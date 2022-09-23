@@ -9,7 +9,11 @@
   <!-- ContextLoaderListener 存在一个默认的配置文件 applicationContext.xml，也可以通过这个配置项自定义配置文件的位置 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+    <param-value>
+      /WEB-INF/dispatcher-servlet.xml,
+      /WEB-INF/handler-config.xml,
+      /WEB-INF/persistence-config.xml
+    </param-value>
   </context-param>
 
   <!-- 负责加载顶层 WebApplicationContext -->
@@ -30,7 +34,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
-
+  <!-- 所有以 .do 结尾的请求都会由 dispatcher 接管 -->
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>
     <url-pattern>*.do</url-pattern>
@@ -38,6 +42,6 @@
 
 
   <welcome-file-list>
-    <welcome-file>/WEB-INF/index.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
