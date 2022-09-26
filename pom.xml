@@ -24,6 +24,7 @@
         <module>public-demo</module>
         <module>ioc-play</module>
         <module>simple-mvc</module>
+        <module>simple-mvc-anno</module>
     </modules>
 
     <dependencyManagement>
