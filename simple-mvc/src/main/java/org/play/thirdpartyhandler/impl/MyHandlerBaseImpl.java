@@ -10,3 +10,4 @@ public class MyHandlerBaseImpl implements MyHandler{
         return new ModelAndView("index");
     }
 }
+
