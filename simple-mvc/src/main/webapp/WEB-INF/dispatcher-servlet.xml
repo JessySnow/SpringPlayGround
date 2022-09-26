@@ -5,6 +5,12 @@
 
     <import resource="persistence-config.xml"/>
 
+    <!-- MyHandler 的Adapator -->
+    <bean id="myHandlerAdapator" class="org.play.thirdpartyhandler.handleradapator.MyHandlerAdapator"/>
+    <!-- 默认的 Adapator 配置 -->
+    <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
     <!-- 访问映射规则 -->
     <bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
@@ -30,5 +36,8 @@
     <bean name="/upload.do" class="org.play.controller.UploadController">
         <constructor-arg name="filePersistence" ref="filePersistence"/>
     </bean>
+
+    <!-- 自定义 Handler 的请求接口 -->
+    <bean name="/exthandler.do" class="org.play.thirdpartyhandler.impl.MyHandlerBaseImpl"/>
 
 </beans>
