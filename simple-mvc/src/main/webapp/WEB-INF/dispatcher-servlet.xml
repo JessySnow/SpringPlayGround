@@ -4,6 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="persistence-config.xml"/>
+    <import resource="normal-config.xml"/>
 
     <!-- MyHandler 的Adapator -->
     <bean id="myHandlerAdapator" class="org.play.thirdpartyhandler.handleradapator.MyHandlerAdapator"/>
@@ -12,7 +13,13 @@
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
 
     <!-- 访问映射规则 -->
-    <bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="request_count_interceptor"/>
+            </list>
+        </property>
+    </bean>
 
     <!-- 视图解析方式 -->
     <!-- InternalResourceViewResolver 是一个默认的解析器，下面的配置是多余的，当 DispatcherServlet 加载时如果在容器中没有找到任何视图解析器，该解析器会被默认构造 -->
@@ -39,5 +46,23 @@
 
     <!-- 自定义 Handler 的请求接口 -->
     <bean name="/exthandler.do" class="org.play.thirdpartyhandler.impl.MyHandlerBaseImpl"/>
+
+    <!-- 固定抛出异常Controller -->
+    <!-- 通过下方的 globalExpCatcher 将会跳转到固定的错误页面 exception.jsp -->
+    <bean name="/expController.do" class="org.play.controller.ExpThrowController"/>
+
+    <!-- 拦截器，将会被注册到 HandlerMapping 中 -->
+    <bean name="request_count_interceptor" class="org.play.interceptor.RequestLimitInterceptor">
+        <constructor-arg name="counter" ref="requestCounter"/>
+    </bean>
+
+    <bean name="globalExpCatcher" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="order" value="1"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">exception</prop>
+            </props>
+        </property>
+    </bean>
 
 </beans>

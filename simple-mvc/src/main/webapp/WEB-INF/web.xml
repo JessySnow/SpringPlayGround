@@ -12,7 +12,8 @@
     <param-value>
       /WEB-INF/dispatcher-servlet.xml,
       /WEB-INF/handler-config.xml,
-      /WEB-INF/persistence-config.xml
+      /WEB-INF/persistence-config.xml,
+      /WEB-INF/normal-config.xml
     </param-value>
   </context-param>
 
