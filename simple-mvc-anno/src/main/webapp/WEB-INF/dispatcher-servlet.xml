@@ -6,4 +6,6 @@
 
     <context:component-scan base-package="org.play.controller"/>
 
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
 </beans>
