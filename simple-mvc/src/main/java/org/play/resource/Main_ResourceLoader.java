@@ -8,7 +8,7 @@ import org.springframework.core.io.ResourceLoader;
 import java.io.IOException;
 
 // 实验 Spring 的 Resource
-public class Main {
+public class Main_ResourceLoader {
     public static void main(String[] args) {
         // DefaultResourceLoader 没有协议指定的情况下加载的是 ClassPath 的资源
         ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -40,5 +40,7 @@ public class Main {
         }else{
             System.out.println("Url Resource");
         }
+
+        // ApplicationContext 继承自 ResourceLoader，所以也可以使用 ApplicationContext 加载资源
     }
 }
